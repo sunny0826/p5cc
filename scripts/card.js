@@ -63,7 +63,7 @@ function redrawText() {
 
     textCtx.clearRect(0, 0, canvasText.width, canvasText.height);
     
-    const value = (textInput.value || 'TAKE YOUR HEART').trim();
+    const value = (textInput.value || '盗走你的心').trim();
     const splitValue = value.split('\n');
    
     // they are all offset, just a different name and purpose
