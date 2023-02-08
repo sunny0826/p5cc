@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Primary Meta Tags -->
+    <title>女神异闻录5 预告信生成器</title>
+    <meta name="title" content="女神异闻录5 预告信生成器">
+    <meta name="description"
+        content="制作一张属于你的预告信. 将预告信送给最黑暗的欲望.">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/editor.css">
+    <link rel="stylesheet" href="styles/card.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/button.css">
+</head>
+
+<body>
+    <base target="_blank" rel="noopener noreferrer">
+
+    <div id="header">
+        <div id="intro-icon">
+            <img src="assets/icon.png">
+        </div>
+        <div id="intro-text">
+            <h2>女神异闻录5 预告信生成器</h2>
+            <p>制作一张属于你的预告信.<br>
+                将这份预告信送给你想偷心的人吧.</p>
+        </div>
+    </div>
+    <hr>
+
+    <!-- Preview area -->
+    <div id="card-preview">
+        <img src="assets/canvas.png" id="canvas-bg">
+        <div id="canvas">
+            <canvas id="canvas-card" width="1770" height="1300"></canvas>
+            <canvas id="canvas-text" width="1770" height="1300"></canvas>
+        </div>
+    </div>
+
+    <button id="refresh" class="action-btn" onclick="redrawBg();redrawText()"><i
+            class="fa fa-refresh"></i>刷新</button>
+
+    <hr>
+
+    <!-- Editor -->
+    <div id="editor">
+
+        <div id="content">
+            <label for="content">你想在预告信上写什么？</label>
+            <textarea name="content" cols="30" autocomplete="off" placeholder="TAKE YOUR HEART"></textarea>
+        </div>
+
+        <div id="options">
+            <hr class="mobile">
+
+            <p style="text-align:center">如果上面没反应 <i class="fa fa-refresh"></i>刷个新？</p>
+            <div class="tab-btn" id="tab-handler">
+                <button id="option-default" data-text-option="alignment"><i class="fa fa-arrows"
+                        style="transform:rotate(-10deg)"></i></button>
+                <button data-text-option="fonts"><i class="fa fa-font" style="transform:rotate(10deg)"></i></button>
+                <button data-text-option="decoration"><i class="fa fa-paint-brush"
+                        style="transform:rotate(-10deg)"></i></button>
+                <button data-text-option="advanced"><i class="fa fa-cog" style="transform:rotate(10deg)"></i></button>
+            </div>
+
+            <!-- Alignments -->
+            <div class="options-tab" id="alignment">
+                <h2>位置/对齐</h2>
+                <div id="text-options">
+                    <label for="text-align"><i class="fa fa-align-center"></i>对齐 </label>
+                    <select name="text-align" id="text-align" onchange="redrawBg();redrawText()"
+                        style="transform:rotate(-3.5deg)">
+                        <option value="left">左对齐</option>
+                        <option value="center" selected>中心对齐</option>
+                        <option value="right">右对齐</option>
+                    </select>
+                    <br><br>
+
+                    <label class="cb-container">
+                        <input type="checkbox" name="text-options" onclick="isMiddle=this.checked"
+                            onchange="redrawText();redrawBg()" checked>
+                        <span class="checkmark"></span>垂直对齐文本
+                    </label>
+
+                    <label for="text-top">或者将文本从上到下移位</label>
+                    <input type="number" name="text-top" id="text-top" min="0" max="2000" value="0" step="5"
+                        onchange="redrawText();redrawBg()">
+                    px
+                </div>
+            </div>
+
+            <!-- Fonts -->
+            <div class="options-tab" id="fonts">
+                <h2>字体</h2>
+                <div id="font-options">
+                    <label for="font-family">字体</label>
+                    <input type="text" name="font-family" id="font-family" value="sans-serif" placeholder="sans-serif"
+                        style="font-family:sans-serif">
+                    <label for="font-size">字号</label>
+                    <input type="number" name="font-size" id="font-size" min="80" max="240" value="120" step="2"
+                        onchange="redrawBg()">
+                    px.
+                </div>
+            </div>
+
+            <!-- Decorations -->
+            <div class="options-tab" id="decoration">
+                <h2>边框</h2>
+                <div id="stroke">
+                    <label class="cb-container">
+                        <input type="checkbox" name="stroke" onclick="textStroke=this.checked" onchange="redrawText()"
+                            checked>
+                        <span class="checkmark"></span>边框
+                    </label>
+
+                    <label for="stroke-width">边框设置为</label>
+                    <input type="number" name="stroke-width" id="stroke-width" min="5" max="10" value="6" step="1"
+                        onchange="textStrokeWidth=this.value">
+                    px.
+                </div>
+
+            </div>
+
+            <!-- Advanced -->
+            <div class="options-tab" id="advanced">
+                <h2>Logo 设置</h2>
+                <div id="show-logo">
+                    <label class="cb-container">
+                        <input type="checkbox" name="show-logo" onclick="showLogo=this.checked" onchange="redrawBg()"
+                            checked>
+                        <span class="checkmark"></span>
+                        展示 "Take your heart" logo
+                    </label>
+                </div>
+
+                <div id="logo-size">
+                    <label for="logo-size">缩放logo</label>
+                    <input type="number" name="logo-size" id="logo-size-option" min="0" max="10" value="1" step="0.05"
+                        onchange="redrawBg()">
+                    <label for="offset">，并且偏移 </label>
+                    <input type="number" name="offset" id="logo-offset" min="0" max="1000" value="20"
+                        onchange="redrawBg()">
+                    px.
+                </div>
+
+                <hr>
+
+                <h2>文字动画延迟</h2>
+                <div id="delay-rate">
+                    <label for="delay-rate">文字动画延迟</label>
+                    <input type="number" name="delay-rate" min="0" max="1000" value="100" onchange="saveDelay()"> ms
+                    <p><i class="fa fa-info-circle"></i> 如果您感觉网页有点卡，请增大此值。</p>
+                </div>
+                
+                <!-- Watermarking -->
+                <div id="wtm-option">
+                    <label class="cb-container">
+                        <input type="checkbox" name="showWatermark" id="showWatermark" onclick="showWtm=this.checked" onchange="redrawBg()">
+                        <span class="checkmark"></span>
+                        展示本网页的水印 (默认关闭)
+                    </label>
+                </div>
+            </div>
+
+            <br>
+            <button class="action-btn" onclick="exportCard()"><i class="fa fa-arrow-circle-o-down"></i>下载你的预告信！</button>
+        </div>
+    </div>
+
+    <hr />
+
+    <div id="credits">
+        <p>Persona 5 © ATLUS. © SEGA. All rights reserved.</p>
+        <p><a href="https://github.com/skyventuree/p5cc">Persona 5 Calling Card Maker</a> website designed and written
+            by <a href="https://sorae42.github.io">sorae42</a>.</p>
+	    <p><a href="https://github.com/skyventuree/p5cc">女神异闻录5 预告信生成器</a> 简体中文网页
+		    by <a href="https://yuluoxk.cn">YuluoXK</a>.</p>
+        <p>Assets used:</p>
+        <ul>
+            <li><a href="https://www.deviantart.com/elmind/art/Persona-5-Calling-Card-Base-676530039">Persona 5 Calling
+                    Card Base</a> by <a href="https://www.deviantart.com/elmind">Elmind</a>.</li>
+            <li><a href="https://lzxhahaha.github.io/persona5/">Persona 5 Style Text Generator</a> by <a
+                    href="https://github.com/LzxHahaha">LzxHahaha</a>.<br>
+                Ported and modified by <a href="https://sorae42.github.io">shigukk</a>.</li>
+            <li>Persona 5 Logo and Assets by ALTUS.</li>
+        </ul>
+        <p>All assets are all under fair use.</p>
+    </div>
+
+    <div id="support">
+        <button>
+            <a href="https://ko-fi.com/guoxudong" style="text-decoration:none">
+                <i class="fa fa-coffee"></i>来点打赏？
+        </button>
+    </div>
+
+    <!-- Main utility and core function-->
+    <script src="version.js"></script>
+    <script src="scripts/editor.js"></script>
+    <script src="scripts/card.js"></script>
+    <script src="scripts/exporter.js"></script>
+
+    <!-- Text generator from Persona 5 Style Text Gen @lzxhahaha -->
+    <script src="scripts/textgen/utils.js"></script>
+    <script src="scripts/textgen/char.js"></script>
+    <script src="scripts/textgen/text.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+const express=require("express"),favicon=require("serve-favicon"),app=express(),port=4200;app.use(express.static(".")),app.use(favicon("./favicon.ico")),app.get("/",((e,s)=>{s.send("try /index.html")})),app.listen(4200,(()=>{console.info("p5cc launched"),console.log("localhost:4200")}));

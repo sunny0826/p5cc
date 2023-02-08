@@ -1,0 +1,44 @@
+#card-preview { 
+    width: 60wv;
+    height: 70vh;
+    padding-bottom: 20px;
+}
+
+#card-preview>#canvas>canvas {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 7vh);
+    height: 58vh;
+    object-fit: cover;
+    border: 1px solid black;
+}
+
+#canvas-bg {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-49.5%);
+    height: 72vh;
+}
+
+@media screen and (max-width:767px),
+screen and (max-device-width:767px) {
+    #card-preview {
+        max-height: 400px;
+    }
+
+    #card-preview>#canvas {
+        display: flex;
+        justify-content: center;
+    }
+    
+    #card-preview>#canvas>canvas {
+        object-fit: contain;
+        height: auto;
+        width: 90vw;
+    }
+
+    #canvas-bg {
+        /* I'm sorry mobile users. */
+        display: none;
+    }
+}
