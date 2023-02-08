@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: 'KoreanKRSM';
     font-style: normal;
     src: url("../assets/KoreanKRSM.ttf") format("truetype");
@@ -6,7 +6,7 @@
 
 * {
     font-family: 'KoreanKRSM', sans-serif;
-}
+} */
 
 html,
 body {
