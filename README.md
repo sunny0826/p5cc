@@ -4,7 +4,7 @@ Persona 5 Calling Card Maker is a tool that allows you to create your own callin
 
 Version 3 features a variety of customization options to the text over previous ancestors, all processed directly on your browser. No more server processing!
 
-forked from [skyventuree/p5cc](https://github.com/skyventuree/p5cc)
+Forked from [skyventuree/p5cc](https://github.com/skyventuree/p5cc)
 
 The Chinese version comes from [Lingluoluo/p5cc](https://github.com/Lingluoluo/p5cc)
 
